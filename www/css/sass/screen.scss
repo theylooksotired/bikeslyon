@@ -1,0 +1,211 @@
+@import "compass/reset";
+
+$white: #FFF;
+$black: #000;
+$gray: #666;
+$grayDark: #333;
+$grayMedium: #999;
+$grayWhite: #EFEFEF;
+$grayWhiteLight: #F7F7F7;
+$blue: #069;
+$blueDark: #234B78;
+$red: #FF3126;
+$yellow: #F2AD0D;
+$green:  #4D9E18;
+
+$facebook: #3B5998;
+$twitter: #4099FF;
+
+$fontFamily: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+@mixin borderRadius($radius) {
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	-ms-border-radius: $radius;
+	border-radius: $radius;
+}
+@mixin clearDiv() {
+	&:after {
+		content: " ";
+		display: block;
+		clear: both;	
+	}
+}
+
+//Style
+body {
+	font-size: 1rem;
+	font-family: $fontFamily;
+}
+
+#mapBikes {
+	width: 100%;
+	height: 300px;
+}
+
+.page {
+	position: relative;
+}
+
+.info {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 999999;
+	background: $red;
+	color: $white;
+	font-size: 0.85rem;
+	.infoName {
+		font-weight: bold;
+	}
+	.infoAddress {
+		font-size: 0.9em;
+		font-style: italic;
+	}
+	.infoIns {
+		padding: 5px;
+		@include clearDiv();
+		a {
+			color: #FFF;
+		}
+		.infoLeft {
+			width: 73%;
+			float: left;
+		}
+		.infoRight {
+			width: 25%;
+			float: right;
+		}
+	}
+	.infoBikes {
+		@include clearDiv();
+	}
+	.infoDisclaimer {
+		font-size: 0.7em;
+		opacity: 0.7;
+		text-align: center;
+		padding: 3px;
+		background: darken($red, 10%);
+	}
+}
+
+.bike {
+	width: 8px;
+	height: 10px;
+	float: right;
+	margin: 0 0 2px 2px;
+	background: $white;
+	@include borderRadius(2px);
+	&.bikeEmpty {
+		opacity: 0.3;
+	}
+}
+
+.centerIcon {
+	$radius: 60px;
+	position: relative;
+	&:after {
+		display: block;
+		content: " ";
+		width: $radius;
+		height: $radius;
+		border-radius: $radius;
+		border: 1px solid rgba(darken($green, 5%), 0.4);
+		background: rgba($green, 0.4);
+		position: absolute;
+		top: -1 * $radius / 2;
+		left: -1 * $radius / 2;
+	}
+	&:before {
+		display: block;
+		content: " ";
+		width: $radius/6;
+		height: $radius/6;
+		border-radius: $radius/6;
+		background: rgba($blue, 0.6);
+		border: 1px solid rgba($white, 0.5);
+		position: absolute;
+		top: -1 * ($radius/6) / 2;
+		left: -1 * ($radius/6) / 2;
+	}
+}
+
+.bikeIcon {
+	$radius: 20px;
+	position: relative;
+	&:after {
+		display: block;
+		content: " ";
+		width: $radius;
+		height: $radius;
+		border-radius: $radius;
+		border: 1px solid rgba(darken($green, 5%), 0.4);
+		background: rgba($green, 0.4);
+		position: absolute;
+		top: -1 * $radius / 2;
+		left: -1 * $radius / 2;
+	}
+	&:before {
+		display: block;
+		content: " ";
+		width: $radius/6;
+		height: $radius/6;
+		border-radius: $radius/6;
+		background: rgba($blue, 0.6);
+		border: 1px solid $blue;
+		position: absolute;
+		top: -1 * ($radius/6) / 2;
+		left: -1 * ($radius/6) / 2;
+	}
+}
+
+.locateMeIns {
+	width: 40px;
+	height: 40px;
+	background-image: url(../../img/target.png);
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	z-index: 999999;
+	&:hover {
+		opacity: 0.8;
+	}
+}
+
+@media screen and (min-width: 500px) {
+	.info {
+		font-size: 1rem;
+	}
+	.bike {
+		width: 10px;
+		height: 14px;
+	}
+}
+
+@media screen and (min-width: 1000px) {
+	.info {
+		font-size: 1.2rem;
+		line-height: 1.2;
+	}
+	.bike {
+		width: 14px;
+		height: 20px;
+	}
+}
+
+@media screen and (min-width: 2000px) {
+	.info {
+		font-size: 1.6rem;
+	}
+	.bike {
+		width: 20px;
+		height: 26px;
+	}
+
+}
