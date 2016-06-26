@@ -77,6 +77,7 @@ $(window).load(function() {
     centerMarker = L.marker([centerLatitude, centerLongitude], {clickable: false, icon: centerIcon, zIndexOffset:9999});
     centerMarker.addTo(mapRender);
 
+    /*
     $(map).each(function(index, ele) {
         var percentageBikes = parseInt((ele.avg_available_bikes / ele.bike_stands) * 100);
         if (percentageBikes<=20) {
@@ -105,7 +106,7 @@ $(window).load(function() {
         marker.addTo(mapRender);
         markers.push(marker);
     });
-
+    */
     mapLoaded = true;
     updateMap();
 
