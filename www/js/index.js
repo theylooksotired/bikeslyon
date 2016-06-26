@@ -1,7 +1,9 @@
 var city = 'Lyon';
 var cityIdFirst = 754;
-var centerLatitude = 45.764;
-var centerLongitude = 4.835;
+var baseLatitude = 45.764;
+var baseLongitude = 4.835;
+var centerLatitude = baseLatitude;
+var centerLongitude = baseLongitude;
 var boundSouth = 45.712;
 var boundNorth = 45.795;
 var boundWest = 4.773;
@@ -102,8 +104,6 @@ $(window).load(function() {
                 divBike.appendTo(infoBikes);
             }
         });
-        //marker.addTo(mapRender);
-        //markers.push(marker);
         markers.addLayer(marker);
     });
 
@@ -144,6 +144,10 @@ function checkGPSLocation() {
     var onSuccess = function(position) {
         posLatitude = position.coords.latitude;
         posLongitude = position.coords.longitude;
+        posLatitude = 80;
+        posLongitude = 6;
+        posLatitude = !(posLatitude<boundNorth && posLatitude>boundSouth) ? baseLatitude : posLatitude;
+        posLongitude = !(posLongitude<boundEast && posLongitude>boundWest) ? baseLongitude : posLongitude;
         posLatitude = (posLatitude<boundSouth) ? boundSouth : posLatitude;
         posLatitude = (posLatitude>boundNorth) ? boundNorth : posLatitude;
         posLongitude = (posLongitude<boundWest) ? boundWest : posLongitude;
