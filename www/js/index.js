@@ -10,7 +10,7 @@ var activeStation = map[0];
 var mapRender;
 var centerMarker;
 var mapLoaded = false;
-var markers = [];
+var markers;
 var iconInfo = {
                     iconUrl: 'img/markerIcon1.png',
                     iconRetinaUrl: 'img/markerIcon1.png',
@@ -61,7 +61,7 @@ $(window).load(function() {
     iconInfo.iconUrl = 'img/markerIcon5_2x.png';
     var bikeIconAlt5 = L.icon(iconInfo);
 
-    mapRender = L.map('mapBikes').setView([centerLatitude, centerLongitude], 16);
+    mapRender = new L.Map('mapBikes').setView([centerLatitude, centerLongitude], 16);
     var southWest = L.latLng(boundSouth, boundWest),
         northEast = L.latLng(boundNorth, boundEast),
         mybounds = L.latLngBounds(southWest, northEast);
@@ -77,23 +77,22 @@ $(window).load(function() {
     centerMarker = L.marker([centerLatitude, centerLongitude], {clickable: false, icon: centerIcon, zIndexOffset:9999});
     centerMarker.addTo(mapRender);
 
-    /*
+    markers = new L.MarkerClusterGroup();
+
     $(map).each(function(index, ele) {
         var percentageBikes = parseInt((ele.avg_available_bikes / ele.bike_stands) * 100);
         if (percentageBikes<=20) {
-            var marker = L.marker([ele.latitude, ele.longitude], {icon: bikeIcon1});
+            var marker = new L.Marker([ele.latitude, ele.longitude], {icon: bikeIcon1});
         } else if (percentageBikes > 20 && percentageBikes <= 40) {
-            var marker = L.marker([ele.latitude, ele.longitude], {icon: bikeIcon2});
+            var marker = new L.Marker([ele.latitude, ele.longitude], {icon: bikeIcon2});
         } else if (percentageBikes > 40 && percentageBikes <= 60) {
-            var marker = L.marker([ele.latitude, ele.longitude], {icon: bikeIcon3});
+            var marker = new L.Marker([ele.latitude, ele.longitude], {icon: bikeIcon3});
         } else if (percentageBikes > 60 && percentageBikes <= 80) {
-            var marker = L.marker([ele.latitude, ele.longitude], {icon: bikeIcon4});
-        } else if (percentageBikes > 80) {
-            var marker = L.marker([ele.latitude, ele.longitude], {icon: bikeIcon5});
+            var marker = new L.Marker([ele.latitude, ele.longitude], {icon: bikeIcon4});
+        } else {
+            var marker = new L.Marker([ele.latitude, ele.longitude], {icon: bikeIcon5});
         }
         marker.on('click', function(){
-            opacityMarkers();
-            this.setOpacity(1);
             var infoBikes = $('.infoBikes');
             $('.infoName').html(ele.name);
             $('.infoAddress').html(ele.address);
@@ -103,10 +102,13 @@ $(window).load(function() {
                 divBike.appendTo(infoBikes);
             }
         });
-        marker.addTo(mapRender);
-        markers.push(marker);
+        //marker.addTo(mapRender);
+        //markers.push(marker);
+        markers.addLayer(marker);
     });
-    */
+
+    mapRender.addLayer(markers);
+    
     mapLoaded = true;
     updateMap();
 
@@ -128,24 +130,13 @@ function updateMap() {
         mapRender.invalidateSize();
         mapRender.panTo([centerLatitude, centerLongitude]);
         centerMarker.setLatLng([centerLatitude, centerLongitude]);
-    }
-}
-
-var opacityMarkers = function() {
-    for (var j=0; j<markers.length; j++) {
-        markers[j].setOpacity(0.6);
+        mapRender.setView([centerLatitude, centerLongitude], 16)
     }
 }
 
 function adaptMapSize() {
     $('#mapBikes').css('width', $(window).width());
     $('#mapBikes').css('height', $(window).height());
-}
-
-function centerImage() {
-    myScroll.zoom(0, 0, 0, 1);
-    var centerY = -1 * ($('#placeImage img').outerHeight() - $('#placeImage').outerHeight()) / 2;
-    myScroll.scrollTo(0, centerY);
 }
 
 function checkGPSLocation() {

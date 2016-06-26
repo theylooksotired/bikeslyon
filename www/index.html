@@ -21,6 +21,10 @@
         <link rel="stylesheet" href="js/leaflet/leaflet.css" />
         <script src="js/leaflet/leaflet.js"></script>
 
+        <link rel="stylesheet" href="js/leafletmarkercluster/MarkerCluster.css" />
+        <link rel="stylesheet" href="js/leafletmarkercluster/MarkerCluster.Default.css" />
+        <script src="js/leafletmarkercluster/leaflet.markercluster-src.js"></script>
+
         <script type="text/javascript" src="data/Lyon/data.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 
@@ -57,23 +61,21 @@
     <script type="text/javascript">
         app.initialize();
         
-        /*
-
         var admobid = {};
         if( /(android)/i.test(navigator.userAgent) ) { 
             admobid = { // for Android
-                banner: 'ca-app-pub-7429223453905389/9899692609',
-                interstitial: 'ca-app-pub-7429223453905389/3853159001'
+                banner: 'ca-app-pub-7429223453905389/6771208607',
+                interstitial: 'ca-app-pub-7429223453905389/8247941809'
             };
         } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
             admobid = { // for iOS
-                banner: 'ca-app-pub-7429223453905389/9899692609',
-                interstitial: 'ca-app-pub-7429223453905389/3853159001'
+                banner: 'ca-app-pub-7429223453905389/6771208607',
+                interstitial: 'ca-app-pub-7429223453905389/8247941809'
             };
         } else {
             admobid = { // for Windows Phone
-                banner: 'ca-app-pub-7429223453905389/9899692609',
-                interstitial: 'ca-app-pub-7429223453905389/3853159001'
+                banner: 'ca-app-pub-7429223453905389/6771208607',
+                interstitial: 'ca-app-pub-7429223453905389/8247941809'
             };
         }
 
@@ -91,8 +93,7 @@
                 AdMob.showInterstitial();
             }
         }
-        */
-        
+
         document.addEventListener('deviceready', initApp, false);
     </script>
     </body>
