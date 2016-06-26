@@ -3,8 +3,8 @@ var cityIdFirst = 754;
 var centerLatitude = 45.764;
 var centerLongitude = 4.835;
 var boundSouth = 45.712;
-var boundWest = 4.773;
 var boundNorth = 45.795;
+var boundWest = 4.773;
 var boundEast = 4.921;
 var activeStation = map[0];
 var mapRender;
@@ -150,8 +150,14 @@ function centerImage() {
 function checkGPSLocation() {
 
     var onSuccess = function(position) {
-        centerLatitude = position.coords.latitude;
-        centerLongitude = position.coords.longitude;
+        posLatitude = position.coords.latitude;
+        posLongitude = position.coords.longitude;
+        posLatitude = (posLatitude<boundSouth) ? boundSouth : posLatitude;
+        posLatitude = (posLatitude>boundNorth) ? boundNorth : posLatitude;
+        posLongitude = (posLongitude<boundWest) ? boundWest : posLongitude;
+        posLongitude = (posLongitude>boundEast) ? boundEast : posLongitude;
+        centerLatitude = posLatitude;
+        centerLongitude = posLongitude;
         updateMap();
     };
 
