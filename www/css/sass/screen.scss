@@ -105,6 +105,7 @@ body {
 .centerIcon {
 	$radius: 60px;
 	position: relative;
+	opacity: 0;
 	&:after {
 		display: block;
 		content: " ";
@@ -128,6 +129,9 @@ body {
 		position: absolute;
 		top: -1 * ($radius/6) / 2;
 		left: -1 * ($radius/6) / 2;
+	}
+	&.centerIconShow {
+		opacity: 1;
 	}
 }
 
@@ -180,32 +184,32 @@ body {
 
 @media screen and (min-width: 500px) {
 	.info {
-		font-size: 1rem;
+		font-size: 1.4rem;
 	}
 	.bike {
-		width: 10px;
-		height: 14px;
+		width: 16px;
+		height: 20px;
 	}
 }
 
 @media screen and (min-width: 1000px) {
 	.info {
-		font-size: 1.2rem;
+		font-size: 1.8rem;
 		line-height: 1.2;
 	}
 	.bike {
-		width: 14px;
-		height: 20px;
+		width: 20px;
+		height: 26px;
 	}
 }
 
 @media screen and (min-width: 2000px) {
 	.info {
-		font-size: 1.6rem;
+		font-size: 2.4rem;
 	}
 	.bike {
-		width: 20px;
-		height: 26px;
+		width: 23px;
+		height: 30px;
 	}
 
 }

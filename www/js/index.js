@@ -113,10 +113,14 @@ $(window).load(function() {
     updateMap();
 
     $('.locateMeIns').click(function(){
+        $('.infoName').html('We are checking your location...');
+        $('.infoAddress').html('');
+        $('.infoBikes').html('');
         checkGPSLocation();
     });
 
     checkGPSLocation();
+    watchGPSLocation();
 
 });
 
@@ -140,12 +144,9 @@ function adaptMapSize() {
 }
 
 function checkGPSLocation() {
-
     var onSuccess = function(position) {
         posLatitude = position.coords.latitude;
         posLongitude = position.coords.longitude;
-        posLatitude = 80;
-        posLongitude = 6;
         posLatitude = !(posLatitude<boundNorth && posLatitude>boundSouth) ? baseLatitude : posLatitude;
         posLongitude = !(posLongitude<boundEast && posLongitude>boundWest) ? baseLongitude : posLongitude;
         posLatitude = (posLatitude<boundSouth) ? boundSouth : posLatitude;
@@ -154,15 +155,36 @@ function checkGPSLocation() {
         posLongitude = (posLongitude>boundEast) ? boundEast : posLongitude;
         centerLatitude = posLatitude;
         centerLongitude = posLongitude;
+        $('.centerIcon').addClass('centerIconShow');
+        $('.infoName').html('Your location is updated!');
+        $('.infoAddress').html('');
+        $('.infoBikes').html('');
         updateMap();
     };
-
     var onError = function(error) {
         $('.infoName').html('Sorry, we cannot find your location');
         $('.infoAddress').html('');
-        infoBikes.html('');
+        $('.infoBikes').html('');
     }
-
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
+}
 
+function watchGPSLocation() {
+    var onSuccess = function(position) {
+        posLatitude = position.coords.latitude;
+        posLongitude = position.coords.longitude;
+        posLatitude = !(posLatitude<boundNorth && posLatitude>boundSouth) ? baseLatitude : posLatitude;
+        posLongitude = !(posLongitude<boundEast && posLongitude>boundWest) ? baseLongitude : posLongitude;
+        posLatitude = (posLatitude<boundSouth) ? boundSouth : posLatitude;
+        posLatitude = (posLatitude>boundNorth) ? boundNorth : posLatitude;
+        posLongitude = (posLongitude<boundWest) ? boundWest : posLongitude;
+        posLongitude = (posLongitude>boundEast) ? boundEast : posLongitude;
+        centerLatitude = posLatitude;
+        centerLongitude = posLongitude;
+        $('.centerIcon').addClass('centerIconShow');
+        centerMarker.setLatLng([centerLatitude, centerLongitude]);
+    };
+    var onError = function(error) {
+    }
+    var watchGPS = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 10000 });
 }
